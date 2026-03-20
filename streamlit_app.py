@@ -176,12 +176,17 @@ def app_slide_efficiency() -> None:
 app_slide_efficiency()
 
 st.markdown(r"""
-The market consist of two agents, $A$ and $B$, one risky asset 
-($s$ GBM with exogenous parameters $\mu_s, \sigma_s$)
-and a debt contract ($r$: endogenous drift $\mu_r$).
-Agents interact through a debt contract.
+            **Explanation of the model:**
+            The market consist of two agents, $A$ and $B$, one risky asset 
+            ($s:$ GBM with exogenous parameters $\mu_s, \sigma_s$)
+            and a debt contract ($r$: endogenous drift $\mu_r$).
+            Agents interact through a debt contract written on the risk-free rate $\mu_r$.
 
-At each point in time, A chooses a portfolio according to the optimal leverage condition.
+            At each point in time the following happens:
+            - A chooses a portfolio according to the optimal leverage condition.
+            - B accepts whatever debt contract A wants (limited to its ability - B cannot lend more than it has)
+            - A and B observes portfolio outcomes.
+            - If B is performing worse than A it adjust the risk-free rate.
 
-"""
+            """
 )
