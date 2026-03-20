@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="centered")
 
 COLORS = {
     "red":            plt.rcParams['axes.prop_cycle'].by_key()['color'][3],
@@ -179,6 +179,7 @@ app_slide_efficiency()
 
 st.markdown(r"""
             **Explanation of the model:**
+
             The market consist of two agents, $A$ and $B$, one risky asset 
             ($s:$ GBM with exogenous parameters $\mu_s, \sigma_s$)
             and a debt contract ($r$: endogenous drift $\mu_r$).
