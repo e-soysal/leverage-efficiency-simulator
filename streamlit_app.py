@@ -29,15 +29,12 @@ def app_slide_efficiency() -> None:
     """, unsafe_allow_html=True)
 
     st.set_page_config(layout="centered")
-    colA, colB = st.columns([0.1, 8])
-    with colB:
-        st.markdown('<div style="margin-top: 2rem;"></div>', unsafe_allow_html=True)
-        st.markdown('<p class="slide-title">Market simulation</p>', unsafe_allow_html=True)
-    #st.markdown("Investor A uses optimal leverage ℓ = (μ_e)/σ², borrowing from B. "
-    #            "The adaptive scenario raises r when A's time-average growth exceeds B's.")
-
+    
+    st.markdown('<div style="margin-top: 2rem;"></div>', unsafe_allow_html=True)
+    st.markdown('<p class="slide-title">Market simulation</p>', unsafe_allow_html=True)
+    
     # ── Sidebar parameters ────────────────────────────────────────────────────────
-    col0, col1, col2 = st.columns([0.1,2,6])
+    col1, col2 = st.columns([2,6])
     with col1:
         mu    = st.slider("Risky asset drift, $\mu_s$",        min_value=0.01, max_value=0.30, value=0.10, step=0.01)
         sigma = st.slider("Risky asset volatility, $\sigma_s$",   min_value=0.05, max_value=0.60, value=0.20, step=0.01)
@@ -132,48 +129,15 @@ def app_slide_efficiency() -> None:
 
         return W_A, W_B, l_A, l_B, W_avg_A, W_avg_B, r_path
 
-    #W_A1, W_B1, l_A1, l_B1, Wavg_A1, Wavg_B1, r1 = simulate(adaptive_r=False)
     W_A2, W_B2, l_A2, l_B2, Wavg_A2, Wavg_B2, r2 = simulate(adaptive_r=True)
 
     l_A_target_base = (mu - r0) / sigma**2
 
-    # ── Info bar ────────────────────────(──────────────────────────────────────────
-    '''c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Merton leverage  ℓ_A", f"{l_A_target_base:.3f}")
-    c2.metric("A borrows from B?", "Yes" if l_A_target_base > 1 else "No")
-    c3.metric("Final r  (adaptive)", f"{r2[-1]:.4f}")
-    c4.metric("Final r  (baseline)", f"{r1[-1]:.4f}")
-    '''
     # ── Plots ─────────────────────────────────────────────────────────────────────
-    #fig, axes = plt.subplots(2, 2, figsize=(12, 9))
-    #(ax_w1, ax_l1), (ax_w2, ax_l2) = axes
     fig, axes = plt.subplots(1, 2, figsize=(9,3.6))
     (ax_w2, ax_l2) = axes
-    '''
-    fig2, axes2 = plt.subplots(2,1)
-    (ax_w1, ax_l1) = axes2
-    # Row 1: baseline
-    ax_w1.plot(t, W_A1, label='Investor A', color = COLORS['IA'])
-    ax_w1.plot(t, W_B1, label='Investor B', color = COLORS['IB'])
-    ax_w1.plot(t, Wavg_A1, linestyle='--', label='A time-avg growth', color = COLORS['IA'])
-    ax_w1.plot(t, Wavg_B1, linestyle='--', label='B time-avg growth', color = COLORS['IB'])
-    ax_w1.set_yscale('log')
-    ax_w1.set_title('Wealth  —  baseline (fixed $\mu_r$)')
-    ax_w1.set_xlabel('Time (years)')
-    ax_w1.set_ylabel('Wealth (log scale)')
-    ax_w1.legend()
 
-    ax_l1.axhline(l_A_target_base, linestyle='--', linewidth=1.5,
-                label=f'ℓ_A target = {l_A_target_base:.2f}', color = COLORS['IA'])
-    ax_l1.plot(t, l_A1, label='ℓ_A  (actual)', color = COLORS['IA'])
-    ax_l1.plot(t, l_B1, label='ℓ_B  (actual)', color = COLORS['IB'])
-    ax_l1.axhline(1.0, linewidth=1, linestyle=':', label='ℓ = 1', color = COLORS['grey'])
-    ax_l1.set_title('Leverage  —  fixed $\mu_r$')
-    ax_l1.set_xlabel('Time (years)')
-    ax_l1.set_ylabel('ℓ')
-    ax_l1.legend()
-    '''
-    # Row 2: adaptive r
+    # Wealth plot
     ax_w2.plot(t, W_A2, label='Investor A', color = COLORS['IA'])
     ax_w2.plot(t, W_B2, label='Investor B', color = COLORS['IB'])
     ax_w2.plot(t, Wavg_A2, linestyle='--', label='A time-avg growth', color = COLORS['IA'])
@@ -185,6 +149,8 @@ def app_slide_efficiency() -> None:
     ax_w2.legend(loc="upper center", bbox_to_anchor=(0.5, -0.17), fontsize=9)
     ax_w2.annotate(rf"$\Delta \mu_r = {dr}$",  xy=(0.05, 0.95), xycoords='axes fraction',
             fontsize=9, verticalalignment='top', color = COLORS["grey"])
+    
+    #Leverage plot
 
     ax_l2.plot(t, l_A2, label='ℓ_A', color = COLORS['IA'])
     ax_l2.plot(t, l_B2, label='ℓ_B', color = COLORS['IB'])
