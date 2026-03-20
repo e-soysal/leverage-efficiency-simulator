@@ -22,8 +22,8 @@ def app_slide_efficiency() -> None:
                 font-size: 2rem !important;
                 font-weight: 400;
                 font-family: sans-serif !important;
-                margin-bottom: 3.5rem;
-                margin-top: 2.5rem;   
+                margin-bottom: 0.5rem;
+                margin-top: 0.5rem;   
             }
         </style>
     """, unsafe_allow_html=True)
