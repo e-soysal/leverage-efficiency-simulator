@@ -2,6 +2,8 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
+st.set_page_config(layout="wide")
+
 COLORS = {
     "red":            plt.rcParams['axes.prop_cycle'].by_key()['color'][3],
     "green":          plt.rcParams['axes.prop_cycle'].by_key()['color'][2],
@@ -34,15 +36,15 @@ def app_slide_efficiency() -> None:
     # ── Sidebar parameters ────────────────────────────────────────────────────────
     col1, col2, col3 = st.columns([4,4,4])
     with col1:
-        st.markdown("Risky asset")
+        st.markdown(r"**Risky asset**")
         mu    = st.slider("Risky asset drift, $\mu_s$",        min_value=0.01, max_value=0.30, value=0.10, step=0.01)
         sigma = st.slider("Risky asset volatility, $\sigma_s$",   min_value=0.05, max_value=0.60, value=0.20, step=0.01)
     with col2:
-        st.markdown("Risk-free asset")
+        st.markdown(r"**Risk-free asset**")
         r0    = st.slider("Risk free rate (initial), $\mu_r(0)$", min_value=0.00, max_value=0.15, value=0.03, step=0.005, format="%.3f")
         dr    = st.slider("Risk free rate adjustment speed, $\Delta \mu_r$", min_value=0.000, max_value=0.10, value=0.000, step=0.001, format="%.3f")
     with col3:
-        st.markdown("Simulation input")
+        st.markdown(r"**Simulation input**")
         T     = st.slider("Time horizon, T (years)", min_value=1, max_value=30, value=10)
         seed  = st.number_input("Random seed", min_value=0, max_value=9999, value=43, step=1)
 
