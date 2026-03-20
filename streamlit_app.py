@@ -27,10 +27,7 @@ def app_slide_efficiency() -> None:
             }
         </style>
     """, unsafe_allow_html=True)
-
-    st.set_page_config(layout="centered")
     
-    st.markdown('<div style="margin-top: 2rem;"></div>', unsafe_allow_html=True)
     st.markdown('<p class="slide-title">Market simulation</p>', unsafe_allow_html=True)
     
     # ── Sidebar parameters ────────────────────────────────────────────────────────
